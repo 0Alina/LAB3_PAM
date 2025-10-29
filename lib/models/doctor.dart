@@ -1,5 +1,3 @@
-import 'appointment_slot.dart';
-
 class Doctor {
   final String name;
   final String specialization;
@@ -11,12 +9,6 @@ class Doctor {
   final String imagePath;
   final String price;
 
-  // Noul câmp pentru program
-  final List<AppointmentSlot> slots;
-
-  // Noul câmp pentru programul pe săptămână
-  final List<Map<String, String>> weekSchedule;
-
   Doctor({
     required this.name,
     required this.specialization,
@@ -27,7 +19,5 @@ class Doctor {
     required this.rating,
     required this.imagePath,
     required this.price,
-    required this.slots,
-    required this.weekSchedule,
   });
 }

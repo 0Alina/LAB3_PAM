@@ -11,7 +11,6 @@ import '../widgets/quick_actions_widget.dart';
 
 import '../models/doctor.dart';
 import '../models/speciality.dart';
-import '../models/appointment_slot.dart';
 import '../models/medicine.dart';
 import '../models/featured_service.dart';
 
@@ -31,16 +30,6 @@ class HomeScreen extends StatelessWidget {
         rating: 4.2,
         imagePath: "assets/images/doc1.png",
         price: "৳300",
-        slots: [
-          AppointmentSlot(day: "Mon", timeRange: "09:00 AM - 05:00 PM", slotsAvailable: "5 Slots", times: ["9AM","10AM","11AM"]),
-          AppointmentSlot(day: "Tue", timeRange: "09:00 AM - 03:00 PM", slotsAvailable: "3 Slots", times: ["9AM","11AM"]),
-          AppointmentSlot(day: "Wed", timeRange: "10:00 AM - 04:00 PM", slotsAvailable: "4 Slots", times: ["10AM","12PM"]),
-        ],
-        weekSchedule: [
-          {"day": "Mon", "time": "09:00 AM - 05:00 PM"},
-          {"day": "Tue", "time": "09:00 AM - 03:00 PM"},
-          {"day": "Wed", "time": "10:00 AM - 04:00 PM"},
-        ],
       ),
       Doctor(
         name: "Dr. Warner Miller",
@@ -52,16 +41,6 @@ class HomeScreen extends StatelessWidget {
         rating: 4.3,
         imagePath: "assets/images/doc2.png",
         price: "৳300",
-        slots: [
-          AppointmentSlot(day: "Mon", timeRange: "09:00 AM - 05:00 PM", slotsAvailable: "5 Slots", times: ["9AM","10AM","11AM"]),
-          AppointmentSlot(day: "Tue", timeRange: "09:00 AM - 03:00 PM", slotsAvailable: "3 Slots", times: ["9AM","11AM"]),
-          AppointmentSlot(day: "Wed", timeRange: "10:00 AM - 04:00 PM", slotsAvailable: "4 Slots", times: ["10AM","12PM"]),
-        ],
-        weekSchedule: [
-          {"day": "Mon", "time": "09:00 AM - 05:00 PM"},
-          {"day": "Tue", "time": "09:00 AM - 03:00 PM"},
-          {"day": "Wed", "time": "10:00 AM - 04:00 PM"},
-        ],
       ),
       Doctor(
         name: "Dr. Emily Rose",
@@ -73,40 +52,8 @@ class HomeScreen extends StatelessWidget {
         rating: 4.8,
         imagePath: "assets/images/cardiologist.png",
         price: "৳450",
-        slots: [
-          AppointmentSlot(day: "Mon", timeRange: "09:00 AM - 05:00 PM", slotsAvailable: "5 Slots", times: ["9AM","10AM","11AM"]),
-          AppointmentSlot(day: "Tue", timeRange: "09:00 AM - 03:00 PM", slotsAvailable: "3 Slots", times: ["9AM","11AM"]),
-          AppointmentSlot(day: "Wed", timeRange: "10:00 AM - 04:00 PM", slotsAvailable: "4 Slots", times: ["10AM","12PM"]),
-        ],
-        weekSchedule: [
-          {"day": "Mon", "time": "09:00 AM - 05:00 PM"},
-          {"day": "Tue", "time": "09:00 AM - 03:00 PM"},
-          {"day": "Wed", "time": "10:00 AM - 04:00 PM"},
-        ],
       ),
     ];
-
-    final List<AppointmentSlot> appointmentSlots = [
-      AppointmentSlot(
-        day: "Mon",
-        timeRange: "09:00 AM - 05:00 PM",
-        slotsAvailable: "5 Slots",
-        times: ["09:00 AM", "10:00 AM", "11:00 AM"],
-      ),
-      AppointmentSlot(
-        day: "Tue",
-        timeRange: "09:00 AM - 03:00 PM",
-        slotsAvailable: "3 Slots",
-        times: ["09:00 AM", "11:00 AM"],
-      ),
-      AppointmentSlot(
-        day: "Wed",
-        timeRange: "10:00 AM - 04:00 PM",
-        slotsAvailable: "4 Slots",
-        times: ["10:00 AM", "12:00 PM"],
-      ),
-    ];
-
 
     final List<FeaturedService> featuredServices = [
       FeaturedService(title: "Cardiology", imagePath: "assets/images/feature1.png"),
