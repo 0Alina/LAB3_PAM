@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import '../models/doctor.dart';
 
 class DoctorProfileWidget extends StatelessWidget {
-  const DoctorProfileWidget({super.key});
+  final Doctor doctor;
+  const DoctorProfileWidget({super.key, required this.doctor});
 
   @override
   Widget build(BuildContext context) {
@@ -12,12 +14,11 @@ class DoctorProfileWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(60),
                 child: Image.asset(
-                  'assets/images/card_prof.png',
+                  doctor.imagePath,
                   height: 100,
                   width: 100,
                   fit: BoxFit.cover,
@@ -27,66 +28,31 @@ class DoctorProfileWidget extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Dr. Emma Kathrin',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      'Cardiologist',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFF357A7B),
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      'MBBS',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
-                      ),
-                    ),
+                  children: [
+                    Text(doctor.name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                    const SizedBox(height: 4),
+                    Text(doctor.specialization, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0xFF357A7B))),
+                    const SizedBox(height: 2),
+                    Text(doctor.degree, style: const TextStyle(fontSize: 14, color: Colors.grey)),
                   ],
                 ),
               ),
             ],
           ),
           const SizedBox(height: 24),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
+            children: [
               Expanded(
-                child: InfoItem(
-                  icon: Icons.star,
-                  iconColor: Colors.amber,
-                  label: '4.3',
-                  sub: 'Rating & Reviews',
-                ),
+                child: _InfoItem(icon: Icons.star, iconColor: Colors.amber, label: doctor.rating.toString(), sub: 'Rating & Reviews'),
               ),
-              VerticalDividerItem(),
+              _VerticalDividerItem(),
               Expanded(
-                child: InfoItem(
-                  icon: Icons.work_outline,
-                  iconColor: Color(0xFFB2DFDB),
-                  label: '14',
-                  sub: 'Years of work',
-                ),
+                child: _InfoItem(icon: Icons.work_outline, iconColor: const Color(0xFFB2DFDB), label: doctor.yearsOfExperience.toString(), sub: 'Years of work'),
               ),
-              VerticalDividerItem(),
+              _VerticalDividerItem(),
               Expanded(
-                child: InfoItem(
-                  icon: Icons.people_outline,
-                  iconColor: Color(0xFFB2DFDB),
-                  label: '125',
-                  sub: 'No. of Patients',
-                ),
+                child: _InfoItem(icon: Icons.people_outline, iconColor: const Color(0xFFB2DFDB), label: doctor.numberOfPatients.toString(), sub: 'No. of Patients'),
               ),
             ],
           ),
@@ -96,20 +62,12 @@ class DoctorProfileWidget extends StatelessWidget {
   }
 }
 
-// Widget pentru fiecare element de info
-class InfoItem extends StatelessWidget {
+class _InfoItem extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
   final String label;
   final String sub;
-
-  const InfoItem({
-    super.key,
-    required this.icon,
-    required this.iconColor,
-    required this.label,
-    required this.sub,
-  });
+  const _InfoItem({required this.icon, required this.iconColor, required this.label, required this.sub});
 
   @override
   Widget build(BuildContext context) {
@@ -121,32 +79,17 @@ class InfoItem extends StatelessWidget {
           children: [
             Icon(icon, size: 20, color: iconColor),
             const SizedBox(width: 4),
-            Text(
-              label,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text(label, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
           ],
         ),
         const SizedBox(height: 4),
-        Text(
-          sub,
-          style: const TextStyle(
-            fontSize: 12,
-            color: Colors.grey,
-          ),
-        ),
+        Text(sub, style: const TextStyle(fontSize: 12, color: Colors.grey)),
       ],
     );
   }
 }
 
-// Separator vertical
-class VerticalDividerItem extends StatelessWidget {
-  const VerticalDividerItem({super.key});
-
+class _VerticalDividerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -1,101 +1,79 @@
 import 'package:flutter/material.dart';
+import '../models/medicine.dart';
 
 class MedicinesWidget extends StatefulWidget {
-  const MedicinesWidget({super.key});
+  final List<Medicine> medicines;
+  const MedicinesWidget({super.key, required this.medicines});
 
   @override
   State<MedicinesWidget> createState() => _MedicinesWidgetState();
 }
 
 class _MedicinesWidgetState extends State<MedicinesWidget> {
-  final List<bool> _favorites = [false, false];
+  late List<bool> _favorites;
 
-  Widget _buildMedicineCard(String img, String name, String price, String unit, int index) {
+  @override
+  void initState() {
+    super.initState();
+    _favorites = List<bool>.filled(widget.medicines.length, false);
+  }
+
+  Widget _buildMedicineCard(Medicine medicine, int index) {
     return Padding(
       padding: EdgeInsets.only(left: index == 0 ? 9 : 7, right: 7),
       child: Stack(
         children: [
-          GestureDetector(
-            child: Container(
-              width: 200,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(16)),
-                    child: Image.asset(
-                      img,
-                      height: 180,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+          Container(
+            width: 200,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                  child: Image.asset(
+                    medicine.imagePath,
+                    height: 180,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
-                  const SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      name,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 16),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      "200mg • 10 Capsule",
-                      style: TextStyle(color: Colors.grey, fontSize: 13),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              price,
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              unit,
-                              style: const TextStyle(
-                                  fontSize: 12, color: Colors.grey),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          width: 30,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF357A7B),
-                            borderRadius: BorderRadius.circular(6),
+                ),
+                const SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(medicine.name, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+                      const SizedBox(height: 4),
+                      Text(medicine.dosage, style: const TextStyle(color: Colors.grey, fontSize: 13)),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text(medicine.price, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                              const SizedBox(width: 4),
+                              Text(medicine.unit, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                            ],
                           ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                              size: 20,
-                            ),
+                          Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(color: const Color(0xFF357A7B), borderRadius: BorderRadius.circular(6)),
+                            child: const Center(child: Icon(Icons.add, color: Colors.white, size: 20)),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 12),
-                ],
-              ),
+                ),
+                const SizedBox(height: 12),
+              ],
             ),
           ),
           Positioned(
@@ -113,20 +91,9 @@ class _MedicinesWidgetState extends State<MedicinesWidget> {
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.9),
                   shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.15),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    )
-                  ],
+                  boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.15), blurRadius: 4, offset: const Offset(0, 2))],
                 ),
-                child: Icon(
-                  _favorites[index]
-                      ? Icons.favorite
-                      : Icons.favorite_border,
-                  color: _favorites[index] ? Colors.redAccent : Colors.grey,
-                ),
+                child: Icon(_favorites[index] ? Icons.favorite : Icons.favorite_border, color: _favorites[index] ? Colors.redAccent : Colors.grey),
               ),
             ),
           ),
@@ -142,19 +109,9 @@ class _MedicinesWidgetState extends State<MedicinesWidget> {
       children: [
         Row(
           children: const [
-            Text(
-              "Medicines",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
+            Text("Medicines", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
             Spacer(),
-            Text(
-              "View all >",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.teal,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            Text("View all >", style: TextStyle(fontSize: 14, color: Colors.teal, fontWeight: FontWeight.w500)),
           ],
         ),
         const SizedBox(height: 12),
@@ -162,12 +119,7 @@ class _MedicinesWidgetState extends State<MedicinesWidget> {
           scrollDirection: Axis.horizontal,
           physics: const BouncingScrollPhysics(),
           child: Row(
-            children: [
-              _buildMedicineCard(
-                  'assets/images/amoxicilin.png', 'Amoxicilin', '৳10.00', '/ Strip', 0),
-              _buildMedicineCard(
-                  'assets/images/acetyl.png', 'Acetylcystein', '৳12.50', '/ Strip', 1),
-            ],
+            children: List.generate(widget.medicines.length, (index) => _buildMedicineCard(widget.medicines[index], index)),
           ),
         ),
       ],

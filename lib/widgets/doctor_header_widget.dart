@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import '../models/doctor.dart';
 
 class DoctorHeaderWidget extends StatelessWidget {
-  const DoctorHeaderWidget({super.key});
+  final Doctor doctor;
+  const DoctorHeaderWidget({super.key, required this.doctor});
 
   @override
   Widget build(BuildContext context) {
@@ -29,22 +31,18 @@ class DoctorHeaderWidget extends StatelessWidget {
                 onPressed: () => Navigator.of(context).pop(),
               ),
               const SizedBox(width: 8),
-
-              // Titlu
-              const Text(
-                'Cardiologist',
-                style: TextStyle(
+              Text(
+                doctor.specialization,
+                style: const TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const Spacer(),
-
               IconButton(
                 icon: const Icon(Iconsax.star, size: 20),
                 onPressed: () {},
               ),
-
               IconButton(
                 icon: const Icon(Iconsax.share, size: 20),
                 onPressed: () {},

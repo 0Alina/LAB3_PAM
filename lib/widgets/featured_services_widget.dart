@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import '../models/featured_service.dart';
 
 class FeaturedServicesWidget extends StatelessWidget {
-  const FeaturedServicesWidget({super.key});
+  final List<FeaturedService> services;
+  const FeaturedServicesWidget({super.key, required this.services});
 
-  Widget _buildMedicineCard(String img) {
+  Widget _buildServiceCard(FeaturedService service) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 7),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16),
         child: Image.asset(
-          img,
+          service.imagePath,
           height: 220,
           width: 180,
           fit: BoxFit.cover,
@@ -25,19 +27,9 @@ class FeaturedServicesWidget extends StatelessWidget {
       children: [
         Row(
           children: const [
-            Text(
-              "Featured Services",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
+            Text("Featured Services", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
             Spacer(),
-            Text(
-              "View all >",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.teal,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            Text("View all >", style: TextStyle(fontSize: 14, color: Colors.teal, fontWeight: FontWeight.w500)),
           ],
         ),
         const SizedBox(height: 12),
@@ -45,11 +37,7 @@ class FeaturedServicesWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           physics: const BouncingScrollPhysics(),
           child: Row(
-            children: [
-              _buildMedicineCard('assets/images/feature1.png'),
-              _buildMedicineCard('assets/images/feature2.png'),
-              _buildMedicineCard('assets/images/feature3.png'),
-            ],
+            children: services.map((s) => _buildServiceCard(s)).toList(),
           ),
         ),
       ],
