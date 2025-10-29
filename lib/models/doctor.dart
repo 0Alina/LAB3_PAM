@@ -20,4 +20,18 @@ class Doctor {
     required this.imagePath,
     required this.price,
   });
+
+  factory Doctor.fromJson(Map<String, dynamic> json) {
+    return Doctor(
+      name: json['name'],
+      specialization: json['specialization'],
+      degree: json['degree'],
+      clinic: json['clinic'],
+      yearsOfExperience: json['yearsOfExperience'],
+      numberOfPatients: json['numberOfPatients'],
+      rating: (json['rating'] as num).toDouble(),
+      imagePath: json['imagePath'],
+      price: json['price'],
+    );
+  }
 }

@@ -17,7 +17,7 @@ class MedicineApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         fontFamily: 'Arial',
       ),
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }
