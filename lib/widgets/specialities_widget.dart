@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/speciality.dart';
 
 class SpecialitiesWidget extends StatelessWidget {
+  // lista citită din JSON de controller
   final List<Speciality> specialities;
   const SpecialitiesWidget({super.key, required this.specialities});
 
@@ -34,6 +35,7 @@ class SpecialitiesWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           physics: const BouncingScrollPhysics(),
           child: Row(
+            // parcurge lista și afișează fiecare specialitate
             children: specialities.map((s) => Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: _buildSpeciality(s),

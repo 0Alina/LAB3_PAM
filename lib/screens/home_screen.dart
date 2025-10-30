@@ -13,6 +13,7 @@ import 'home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
+  // se instanțiază controller-ul
   final HomeController controller = Get.put(HomeController());
 
   @override
@@ -21,6 +22,7 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Obx(() {
+          // se așteaptă încărcarea JSON-ului
           if (controller.isLoading.value) {
             return const Center(child: CircularProgressIndicator());
           }
@@ -35,6 +37,7 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 10),
                   const QuickActionsWidget(),
                   const SizedBox(height: 25),
+                  // datele JSON sunt deja obiecte Dart și sunt trimite către widgeturi pentru afișare
                   SpecialitiesWidget(specialities: controller.specialities),
                   const SizedBox(height: 30),
                   SpecialistsWidget(doctors: controller.doctors),

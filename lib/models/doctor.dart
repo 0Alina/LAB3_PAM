@@ -21,6 +21,7 @@ class Doctor {
     required this.price,
   });
 
+// conversia datelor brute JSON în obiecte de tip Dart
   factory Doctor.fromJson(Map<String, dynamic> json) {
     return Doctor(
       name: json['name'],
